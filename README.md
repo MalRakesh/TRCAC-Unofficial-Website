@@ -29,7 +29,7 @@ This project showcases the TRCAC Website with great user experience and also a d
 
 ## Demo
 
-Check out the live demo [here](https://trcac.vercel.app).
+Check out the live demo [here](https://trcac-unofficial.great-site.net).
 
 <br> 
 
