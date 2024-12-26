@@ -1,9 +1,9 @@
 <?php
 // Database configuration
-$servername = "localhost"; // usually "localhost"
-$username = "root"; // your database username
+$servername = "sql206.infinityfree.com"; // usually "localhost"
+$username = "if0_37755554"; // your database username
 $password = "RakeshMal@12345"; // your database password
-$dbname = "trcac"; // your database name
+$dbname = "if0_37755554_trcac"; // your database name
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
