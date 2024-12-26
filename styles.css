@@ -1,0 +1,111 @@
+body {
+  /* overflow: hidden; */
+  background-image: linear-gradient(
+    to bottom,
+    #ffe3bf,
+    #f6eabc,
+    #e7f1bd,
+    #d5f8c5,
+    #bfffd4
+  );
+  height: 100vh;
+  /* Set the height of the body to 100% of the viewport height */
+}
+
+/* Basic CSS for header styling */
+header {
+  background-color: transparent;
+  color: #000000;
+  padding: 15px 20px;
+  /* Increased padding */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav ul {
+  font-size: 40px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 30px;
+  /* Increased margin */
+}
+
+nav ul li:last-child {
+  margin-right: 0;
+}
+
+nav ul li a {
+  color: #000000;
+  text-decoration: none;
+  padding: 10px;
+  /* Increased padding */
+  transition: background-color 0.3s;
+  /* Smooth transition */
+}
+
+/* Hover effect */
+nav ul li a:hover {
+  border-radius: 20px;
+  color: #ffffff;
+  background-color: #0c0076;
+  /* Darker background on hover */
+}
+
+/* Additional CSS for body content */
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.left-content {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.right-content img {
+  border-radius: 20px;
+  width: 850px;
+  /* max-width: 100%; */
+  height: auto;
+}
+
+#btn{
+  cursor: pointer;
+}
+
+button {
+  padding: 20px;
+  /* height: 50px; */
+  border-radius: 20px;
+  font-size: 40px;
+  background-color: #ffbe4e;
+}
+
+button:hover {
+  color: #ffffff;
+  background-color: #0c0076;
+  padding: 20px;
+  /* height: 50px; */
+  border-radius: 20px;
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 60px;
+}
+
+p {
+  font-size: 45px;
+}

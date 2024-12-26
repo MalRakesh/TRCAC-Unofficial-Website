@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .present {
+            background-color: lightgreen;
+        }
+
+        .absent {
+            background-color: salmon;
+        }
+
+
+        .buttons {
+    margin: 30px;
+    margin-left: 720px;
+}
+
+.button {
+    padding: 10px 20px;
+    margin: 0 70px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+    </style>
+</head>
+
+<body bgcolor="yellow">
+    <h1 style="text-align: center;">T.Y.B.Sc.IT</h1>
+
+    <label for="divisionSelect">Select Division:</label>
+    <select id="divisionSelect">
+        <option value="A">Division A</option>
+        <option value="B">Division B</option>
+    </select>
+
+    <table id="studentsTable">
+        <thead>
+            <tr>
+                <th>Roll No.</th>
+                <th>Student Name</th>
+                <th>Attendance</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <script>
+        const studentsA = [
+            // Add students for division A here...
+            { rollNo: 2206001, name: "AJVILKAR ATHARVA SURAJ SAMRUDDHI", attendance: "absent" },
+            { rollNo: 2206002, name: "BHASIN SIDHANT SACHIN KAJAL", attendance: "absent" },
+            { rollNo: 2206003, name: "BHATADE PRATHAM PRAKASH PRIYA", attendance: "absent" },
+            { rollNo: 2206004, name: "CHACHAD SAHIL KANUBHAI RANJAN", attendance: "absent" },
+            { rollNo: 2206005, name: "BHAVESH CHAOUDHARY", attendance: "absent" },
+            { rollNo: 2206006, name: "CHAVAN MANSI KISHOR ANITA", attendance: "absent" },
+            { rollNo: 2206007, name: "CHETTIAR DATTAGURU DHARMALINGAM CHITRA", attendance: "absent" },
+            { rollNo: 2206008, name: "CHILE PRAJYOT SHARAD SHARADDHA", attendance: "absent" },
+            { rollNo: 2206009, name: "CHOUDHARY KIRAN SURESH REKHA", attendance: "absent" },
+            { rollNo: 2206010, name: "CHOUDHARY MOHAMMAD ASHRAF BADREALAM KHALDA", attendance: "absent" },
+            { rollNo: 2206011, name: "CHOUDHARY SATYAM MANMOHAN KIRAN", attendance: "absent" },
+            { rollNo: 2206012, name: "DALVI SHRAVANI KRISHNA POOJA", attendance: "absent" },
+            { rollNo: 2206013, name: "DHARIYA SURAJ SUNIL SARITA", attendance: "absent" },
+            { rollNo: 2206014, name: "DIKSHIT AKASH VAKEEL RENU", attendance: "absent" },
+            { rollNo: 2206015, name: "ENGINEER JAINESH HITESH NEEPA", attendance: "absent" },
+            { rollNo: 2206016, name: "FERNANDES ROUVIN STANNLY DOMINIC PERPETUA", attendance: "absent" },
+            { rollNo: 2206017, name: "FERNANDES YOHAAN JOE RAQUEL", attendance: "absent" },
+            { rollNo: 2206018, name: "GANGANABOINA VRISHAB SHRINIVAS RAJWA", attendance: "absent" },
+            { rollNo: 2206019, name: "GUPTA AJAY AVDHRAM URMILA", attendance: "absent" },
+            { rollNo: 2206020, name: "GUPTA MAUSAM JEETLAL SHANTIDEVI", attendance: "absent" },
+            { rollNo: 2206021, name: "GUPTA NIKITA LAKHENDRA BABITA", attendance: "absent" },
+            { rollNo: 2206022, name: "GUPTA SUNEHA MUNNILAL CHANDA", attendance: "absent" },
+            { rollNo: 2206023, name: "GUPTA VINAY UDAYBHAN INDRA", attendance: "absent" },
+            { rollNo: 2206024, name: "INDULKAR SAKSHI KAMLESH KRUTIKA", attendance: "absent" },
+            { rollNo: 2206025, name: "JADIA ANJALI ANIL RAGINI", attendance: "absent" },
+            { rollNo: 2206026, name: "JAISWAR PRIYANSHU OMPRAKASH SAVITA", attendance: "absent" },
+            { rollNo: 2206027, name: "JHA HARIOM LALAN POONAM", attendance: "absent" },
+            { rollNo: 2206028, name: "JOSHI ANJALI RAJU GAYATRI", attendance: "absent" },
+            { rollNo: 2206029, name: "JOSHI GAURAV ARUN SHARMILA", attendance: "absent" },
+            { rollNo: 2206030, name: "JOSHI SMITA PRABHAKAR PRADNYA", attendance: "absent" },
+            { rollNo: 2206031, name: "KADAM TANAY DEEPAK SHARMILA", attendance: "absent" },
+            { rollNo: 2206032, name: "KADAM TEJAS DILIP DIPALI", attendance: "absent" },
+            { rollNo: 2206033, name: "KAKADIYA ZEEL MANHARBHAI BHAVNABEN", attendance: "absent" },
+            { rollNo: 2206034, name: "KAKANI DEVANSH MADHUSUDAN SONAL", attendance: "absent" },
+            { rollNo: 2206035, name: "KANCHWALA MOHAMMED MAZAHEER RASHIDA", attendance: "absent" },
+            { rollNo: 2206036, name: "KHA RONIT PRASANTA SAPNA", attendance: "absent" },
+            { rollNo: 2206037, name: "KHAN AMAAN AFTAB KAIRUNISSA", attendance: "absent" },
+            { rollNo: 2206038, name: "KHAN MOHAMMED MAAZ NADIM BUSHRA", attendance: "absent" },
+            { rollNo: 2206039, name: "MAKWANA JAY DILIP LATA", attendance: "absent" },
+            { rollNo: 2206040, name: "MALIK FAUZIYA MAHFOOZ YASMEEN", attendance: "absent" },
+            { rollNo: 2206041, name: "MAVANI MAITRI KISHOR MADHU", attendance: "absent" },
+            { rollNo: 2206042, name: "MENDONCA SHAUN JOSEPH MARGARET", attendance: "absent" },
+            { rollNo: 2206043, name: "JAISWAL AJAY SOHAN PREMSHILA", attendance: "absent" },
+            { rollNo: 2206044, name: "MISHRA KRIPASHANKAR ANIL REKHA", attendance: "absent" },
+            { rollNo: 2206045, name: "MODI VANSHIKAA PRAKASH BHARTI", attendance: "absent" },
+            { rollNo: 2206046, name: "NADAR SWATHI SHANMUGANATHAN AMUTHA", attendance: "absent" },
+            { rollNo: 2206047, name: "NAGWEKAR SAHIL SANTOSH SAMPADA", attendance: "absent" },
+            { rollNo: 2206048, name: "NEWPANE BADAL LILADHAR SITA", attendance: "absent" },
+            { rollNo: 2206049, name: "OJHA ADITYA RAJKUMAR REKHA", attendance: "absent" },
+            { rollNo: 2206050, name: "PRAKASH PAL", attendance: "absent" },
+            { rollNo: 2206051, name: "PAL SUMAN VIJAY RAJKUMARI", attendance: "absent" },
+            { rollNo: 2206052, name: "PALE PRANAY PRADEEP PRAGATI", attendance: "absent" },
+            { rollNo: 2206053, name: "PANDEY NIMMI NANDKUMAR SAVITA", attendance: "absent" },
+            { rollNo: 2206054, name: "PAREKH PRATHAM AMISH DEEPA", attendance: "absent" },
+            { rollNo: 2206055, name: "PARKAR WASIFAH LIYAKAT NADIYA", attendance: "absent" },
+            { rollNo: 2206056, name: "PARMAR PAYAL KAMLESH ASHA", attendance: "absent" },
+            { rollNo: 2206057, name: "PATEL DIXITA SUBHASH PUNAM", attendance: "absent" },
+            { rollNo: 2206058, name: "PATIL OMKAR NAMDEO CHHAYA", attendance: "absent" },
+            { rollNo: 2206059, name: "POOJARY SUDHIKSHA SUDHAKAR PRAMODA", attendance: "absent" },
+            { rollNo: 2206060, name: "PRAJAPATI ADITYA SAHEB SANGEETA", attendance: "absent" },
+            { rollNo: 2206061, name: "GOWDA GAGANA KUMAR REKHA", attendance: "absent" },
+            { rollNo: 2206062, name: "GOWDA SANDHYA NINGARAJ MANJULA", attendance: "absent" },
+            { rollNo: 2206063, name: "KANNAUJIYA AMIT PAPPU SUDHA", attendance: "absent" },
+            { rollNo: 2206064, name: "KHANT NISHTHA ASHWIN SONAL", attendance: "absent" },
+            { rollNo: 2206065, name: "KHANT RAMSHARN KANTILAL SUMAN", attendance: "absent" },
+            { rollNo: 2206066, name: "PATIL PIYUSH RAJESH MINAXI", attendance: "absent" },
+            { rollNo: 2206067, name: "GONSALVES IRWIN NEIL LAURA", attendance: "absent" },
+            { rollNo: 2206068, name: "PUJARI SHRUTI MANGESH MANSI", attendance: "absent" },
+            { rollNo: 2206069, name: "AKASH RAJAK", attendance: "absent" },
+            { rollNo: 2206070, name: "RATHOD YASHPALSINGH RATANSINGH HETALKUWAR", attendance: "absent" },
+            { rollNo: 2206071, name: "RAUT HERAMB PRAKSH PRAJAKTA", attendance: "absent" },
+            { rollNo: 2206072, name: "SARDA KESHAV SHIVPRAKASH KIRAN", attendance: "absent" }
+        ];
+
+        const studentsB = [
+            // Add students for division B here...
+            { rollNo: 2206073, name: "SAVE YUGANT AVINASH ALPANA", attendance: "absent" },
+            { rollNo: 2206074, name: "SAYYED MEHAK TAUFIQUE RAFIYA", attendance: "absent" },
+            { rollNo: 2206075, name: "SHAIKH MOHD ZIMRAN ABDULLAH RAHATHUL SASITHA", attendance: "absent" },
+            { rollNo: 2206076, name: "SHAIKH SHAHIN MEHANDIHASAN SEHNAZBANO", attendance: "absent" },
+            { rollNo: 2206077, name: "SHAIKH SOHAIL KAMMRUDDIN SANJITA", attendance: "absent" },
+            { rollNo: 2206078, name: "SHARMA VINDESH UPENDRA POONAM", attendance: "absent" },
+            { rollNo: 2206079, name: "SHETTY JIYA BASAPPA CHANDRAKALA", attendance: "absent" },
+            { rollNo: 2206080, name: "SHETTY SIDDHRATH UDAY SUCHITRA", attendance: "absent" },
+            { rollNo: 2206081, name: "SHRIYAN TANVI SURESH AMITHA", attendance: "absent" },
+            { rollNo: 2206082, name: "SHUKLA HARSH ARUN PRITI", attendance: "absent" },
+            { rollNo: 2206083, name: "SHUKLA MAHEK SANTOSH NISHA", attendance: "absent" },
+            { rollNo: 2206084, name: "SIDDIQUI TAMIRRAJA MOHAMEDKALIM SAMARJAHA", attendance: "absent" },
+            { rollNo: 2206085, name: "SINGH ABHAY BRIJESH PRATIMA", attendance: "absent" },
+            { rollNo: 2206086, name: "SINGH ANKIT AJAY SARITA", attendance: "absent" },
+            { rollNo: 2206087, name: "SINGH OM KRISHNANAND SEEMA", attendance: "absent" },
+            { rollNo: 2206088, name: "SINGH PIYUSH GOVIND SONIA", attendance: "absent" },
+            { rollNo: 2206089, name: "SINGH RUDRIK PRAMENDRA POOJA", attendance: "absent" },
+            { rollNo: 2206090, name: "SINGH SHLOK DILIP RANJANA", attendance: "absent" },
+            { rollNo: 2206091, name: "SOLANKI HETAL JAYESH PREMILA", attendance: "absent" },
+            { rollNo: 2206092, name: "SUTAR VANSHIKA VIVEK VRUSHALI", attendance: "absent" },
+            { rollNo: 2206093, name: "THALLY VIRAJ VINAY JYOTI", attendance: "absent" },
+            { rollNo: 2206094, name: "THINGALAYA DIVESH DAYANAND SUJATA", attendance: "absent" },
+            { rollNo: 2206095, name: "TIWARI RAKHI SURYAKANT POONAM", attendance: "absent" },
+            { rollNo: 2206096, name: "TOPIWALA SIMRAN MANISH KAMINI", attendance: "absent" },
+            { rollNo: 2206097, name: "TRIPATHI JYOTIRMAYA ANILKUMAR RITADEVI", attendance: "absent" },
+            { rollNo: 2206098, name: "TRIPATHI SHIVAM DINESH LILAWATI", attendance: "absent" },
+            { rollNo: 2206099, name: "VEDAK ROHAN SANDEEP VAISHALI", attendance: "absent" },
+            { rollNo: 2206100, name: "VISHWAKARMA AMAN MANOJ REENA", attendance: "absent" },
+            { rollNo: 2206101, name: "VISHWAKARMA ANKIT VINOD PUSHPA", attendance: "absent" },
+            { rollNo: 2206102, name: "VISHWAKARMA YASH PRADEEP GAYATRI", attendance: "absent" },
+            { rollNo: 2206103, name: "VISHWKARMA KHUSHI VIJAY POONAM", attendance: "absent" },
+            { rollNo: 2206104, name: "WALA TARUN KAMLESH RAKSHA", attendance: "absent" },
+            { rollNo: 2206105, name: "YADAV ABHISHEK MANGLA RITA", attendance: "absent" },
+            { rollNo: 2206106, name: "YADAV ANURAG PARASNATH JAIMILA", attendance: "absent" },
+            { rollNo: 2206107, name: "YADAV BIBLESH NANDLAL RADHIKA", attendance: "absent" },
+            { rollNo: 2206108, name: "YADAV SACHIN PANNALAL PRABHAVATIDEVI", attendance: "absent" },
+            { rollNo: 2206109, name: "YADAV SHUBHAM SAMARBAHADUR GEETA DEVI", attendance: "absent" },
+            { rollNo: 2206110, name: "MOHD ZOYA", attendance: "absent" },
+            { rollNo: 2206111, name: "YADAV NILESH RAMJEET NISHA", attendance: "absent" },
+            { rollNo: 2206112, name: "MAL RAKESH PRASANTA SUMITRA", attendance: "absent" },
+            { rollNo: 2206113, name: "PANDEY RIYA SATISH POONAM", attendance: "absent" },
+            { rollNo: 2206114, name: "GUPTA SHUBHAM MUKTINATH GYANTI DEVI", attendance: "absent" },
+            { rollNo: 2206115, name: "LODH ANJITHA TULSIRAM SUMITRADEVI", attendance: "absent" },
+            { rollNo: 2206116, name: "VISHWAKARMA VISHWJEET VINOD SANGITA DEVI", attendance: "absent" },
+            { rollNo: 2206117, name: "CREADO ASHTON MACKDONALD RACHELLE", attendance: "absent" },
+            { rollNo: 2206118, name: "SOMAN JHA", attendance: "absent" },
+            { rollNo: 2206119, name: "RAI CHANCHAL RANJEET PRANITA", attendance: "absent" },
+            { rollNo: 2206120, name: "SHUKLA AMAN VINAY BHAVNA", attendance: "absent" },
+            { rollNo: 2206121, name: "KARTIK RAVI RUCHI", attendance: "absent" },
+            { rollNo: 2206122, name: "GIRI PRIYESH SHIVKUMAR SUMAN", attendance: "absent" },
+            { rollNo: 2206123, name: "DEANNE COUNTINHO", attendance: "absent" },
+            { rollNo: 2206124, name: "YADAV SURAJ HUBLAL REETA", attendance: "absent" },
+            { rollNo: 2206125, name: "DAVE BHAVYA PRAVEEN VINITA", attendance: "absent" },
+            { rollNo: 2206126, name: "PATIL BHAVIK BALKRISHNA BHAGYASHREE", attendance: "absent" },
+            { rollNo: 2206127, name: "YADAV AARTI KAMLESH PRAMILA", attendance: "absent" },
+            { rollNo: 2206128, name: "GUPTA OM RAKESH ARTI", attendance: "absent" },
+            { rollNo: 2206129, name: "SONAWANE YASH VIVEK YOGITA", attendance: "absent" },
+            { rollNo: 2206130, name: "SINGH SHUBHAM RAMBAHADUR DHANA", attendance: "absent" },
+            { rollNo: 2206131, name: "SUTHAR AMRUT BHAWARLAL KAJAL", attendance: "absent" },
+            { rollNo: 2206132, name: "MISHRA HARSH VIVEKANAND POONAM", attendance: "absent" },
+            { rollNo: 2206133, name: "NIKAM VRUSHALI SHARAD REKHA", attendance: "absent" },
+            { rollNo: 2206134, name: "JADHAV SHUBHAM KRUSHNAKANT KARUNA", attendance: "absent" },
+            { rollNo: 2206135, name: "YADAV AMIT DHARMA KAMLAVATI", attendance: "absent" },
+            { rollNo: 2206136, name: "UPADHAYAY ANUJ VINAY SARITA", attendance: "absent" },
+            { rollNo: 2206137, name: "TANIYA KAMBLE", attendance: "absent" },
+            { rollNo: 2206138, name: "RANE SHUBHAM GUNAJI SHWETA", attendance: "absent" },
+            { rollNo: 2206139, name: "PATIL ARJUN ANIL JYOTI", attendance: "absent" },
+            { rollNo: 2206140, name: "BILLAVA JEEVITA RAMESH BHARATI", attendance: "absent" },
+            { rollNo: 2206141, name: "RAI PRIYA BRIJESH PUSHPALATA", attendance: "absent" },
+            { rollNo: 2206142, name: "SHARMA YASH YOGENDRA SARITA", attendance: "absent" },
+            { rollNo: 2206143, name: "YADAV ANAND RANJEET PRABHAVATI", attendance: "absent" },
+            { rollNo: 2206144, name: "TARDEKAR MAYURESH SHIVAJI", attendance: "absent" },
+            { rollNo: 2206145, name: "NAIK KARTIK GANESH NETRAVATI", attendance: "absent" },
+            { rollNo: 2206146, name: "MANSOORI MEHFOOZ ZULFIKAR ROONAK", attendance: "absent" },
+            { rollNo: 2206147, name: "SINGH HITENDRA ARVIND KIRAN", attendance: "absent" },
+            { rollNo: 2206148, name: "SURVE TANISHQ NILESH NAMRATA", attendance: "absent" },
+            { rollNo: 2206149, name: "GUPTA SNEHA MAHESH KAVITA", attendance: "absent" },
+            { rollNo: 2206150, name: "DUBEY ASWANI SANJAY RESHMA", attendance: "absent" }
+        ];
+
+        function generateRows(students) {
+            const tbody = document.querySelector("#studentsTable tbody");
+            tbody.innerHTML = ''; // Clear the table body before populating with new data
+            students.forEach(student => {
+                const row = document.createElement("tr");
+
+                const rollNoCell = document.createElement("td");
+                rollNoCell.textContent = student.rollNo;
+                row.appendChild(rollNoCell);
+
+                const nameCell = document.createElement("td");
+                nameCell.textContent = student.name;
+                row.appendChild(nameCell);
+
+                const attendanceCell = document.createElement("td");
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.checked = student.attendance === "present";
+                checkbox.addEventListener("change", function () {
+                    if (this.checked) {
+                        row.classList.remove("absent");
+                        row.classList.add("present");
+                        student.attendance = "present";
+                    } else {
+                        row.classList.remove("present");
+                        row.classList.add("absent");
+                        student.attendance = "absent";
+                    }
+                });
+                attendanceCell.appendChild(checkbox);
+                row.appendChild(attendanceCell);
+
+                if (student.attendance === "present") {
+                    row.classList.add("present");
+                } else {
+                    row.classList.add("absent");
+                }
+
+                tbody.appendChild(row);
+            });
+        }
+
+        window.onload = function () {
+            const divisionSelect = document.querySelector("#divisionSelect");
+
+            divisionSelect.addEventListener("change", function () {
+                const selectedDivision = this.value;
+                if (selectedDivision === "A") {
+                    generateRows(studentsA);
+                } else if (selectedDivision === "B") {
+                    generateRows(studentsB);
+                }
+            });
+
+            // Initially populate with students from division A
+            generateRows(studentsA);
+        };
+    </script>
+
+    <div class="buttons">
+        <button class="button" onclick="window.location.href='Welcome.html'">Back</button>
+        <!-- <button class="button" onclick="window.location.href='Contact.html'">Next</button> -->
+    </div>
+
+</body>
+
+</html>

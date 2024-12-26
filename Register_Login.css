@@ -1,0 +1,130 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: linear-gradient(to bottom, #ffe3bf, #f6eabc, #e7f1bd, #d5f8c5, #bfffd4);
+    color: #0e1012;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center; /* Center the heading */
+}
+
+.form-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Increased width */
+    max-width: 800px; /* Increased max-width */
+    margin-bottom: 2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Change from center to stretch for full width */
+}
+
+fieldset {
+    width: 100%;
+    border: none;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+legend {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+label {
+    flex: 1;
+    text-align: start;
+    margin-right: 1rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="password"] {
+    flex: 2;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    width: 100%; /* Ensure inputs take full width */
+}
+
+.password-group {
+    display: flex;
+    align-items: center;
+}
+
+.password-group i {
+    cursor: pointer;
+    margin-left: -30px; /* Adjust positioning of the icon */
+}
+
+.radio-group {
+    flex: 2;
+    display: flex;
+    align-items: center;
+}
+
+.radio-group input[type="radio"] {
+    width: auto;
+    margin-left: 0.5rem;
+    margin-right: 0.2rem;
+}
+
+.radio-group label {
+    margin-right: 1rem;
+    margin-left: 0.2rem;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+input[type="submit"],
+button {
+    background-color: #574b73;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background-color: #3e8e41;
+}
+
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
+}
+
+.feedback {
+    margin-top: 10px; 
+}

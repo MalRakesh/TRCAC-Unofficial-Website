@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header>
+        <!-- Logo (replace 'logo.png' with the path to your logo image) -->
+        <div>
+            <img src="Images/Logo.png" alt="Logo" style="height: 150px;"> <!-- Adjust the height as needed -->
+        </div>
+
+        <!-- Navigation Links -->
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Course.html">Courses</a></li>
+                <li><a href="About.html">About Us</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Content of your website goes here -->
+
+    <!-- Body Content -->
+    <div class="content-container">
+        <!-- Left Content -->
+        <div class="left-content">
+            <h2>Upgrade Your
+                Skill Now!</h2>
+            <p>Welcome to <b>TRCAC</b>,
+                Where Every Student's Journey Begins.</p>
+            <button id="btn" onclick="location.href='Register_Login.html'">Register Now</button>
+        </div>
+        <!-- Right Content -->
+        <!-- Right Content -->
+        <div class="right-content">
+            <img id="slideshow-image" src="Images/1.jpg" alt="Slideshow Image">
+        </div>
+
+        <script>
+            // JavaScript for automatic slideshow
+            var slideIndex = 0;
+            var slides = ["Images/1.jpg", "Images/2.jpg", "Images/3.jpg", "Images/4.jpg", "Images/5.jpg"]; // Add more image URLs as needed
+
+            function showSlide() {
+                var image = document.getElementById("slideshow-image");
+                image.src = slides[slideIndex];
+                slideIndex = (slideIndex + 1) % slides.length; // Cycle through images
+            }
+
+            // Initial call to show the first slide
+            showSlide();
+
+            // Set interval to automatically change slide every 3 seconds
+            setInterval(showSlide, 2000); // Change slide every 3 seconds (3000 milliseconds)
+        </script>
+    </div>
+
+
+
+
+</body>
+
+</html>
