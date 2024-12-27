@@ -25,9 +25,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result && mysqli_num_rows($result) > 0) {
             $userData = mysqli_fetch_assoc($result);
+            // Verifying the hashed password
             if (password_verify($loginPassword, $userData['password'])) {
                 $_SESSION['user_id'] = $userData['id'];
-                echo "SUCCESS: Student login successfully!";
+                echo "SUCCESS: Student logged in successfully!";
             } else {
                 $errorMessages[] = "Incorrect password. Please try again.";
             }

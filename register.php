@@ -16,10 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $nationality = mysqli_real_escape_string($conn, $_POST['nationality']);
     $contactNumber = mysqli_real_escape_string($conn, $_POST['contact-number']);
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $rawPassword = $_POST['password']; // Get raw password for hashing
 
     // Validate input fields for completeness
-    if (empty($name) || empty($classValue) || empty($email) || empty($password)) {
+    if (empty($name) || empty($classValue) || empty($email) || empty($rawPassword)) {
         $errorMessages[] = "Please fill in all required fields.";
     }
 
@@ -30,9 +30,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errorMessages[] = "Error: Email already exists. Please choose another email.";
     }
 
+    // Hashing the password
+    $hashed_password = password_hash($rawPassword, PASSWORD_DEFAULT);
+
     // Register if no errors
     if (empty($errorMessages)) {
-        $query = "INSERT INTO students (name, class, age, gender, email, nationality, contact_number, password) VALUES ('$name', '$classValue', $age, '$gender', '$email', '$nationality', '$contactNumber', '$password')";
+        $query = "INSERT INTO students (name, class, age, gender, email, nationality, contact_number, password) VALUES ('$name', '$classValue', $age, '$gender', '$email', '$nationality', '$contactNumber', '$hashed_password')";
 
         if (mysqli_query($conn, $query)) {
             echo "SUCCESS: Student registered successfully!";
