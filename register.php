@@ -1,6 +1,10 @@
 <?php
 include 'db_connection.php';
 
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errorMessages = [];
 
@@ -20,18 +24,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Check for existing email
-    $emailCheckQuery = "SELECT * FROM students WHERE email='$email'";
-    $result = mysqli_query($conn, $emailCheckQuery);
+    $emailCheckQuery = "SELECT * FROM students WHERE email=?";
+    $stmt = mysqli_prepare($conn, $emailCheckQuery);
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
     if ($result && mysqli_num_rows($result) > 0) {
         $errorMessages[] = "Error: Email already exists. Please choose another email.";
     }
 
     // Register if no errors
     if (empty($errorMessages)) {
-        $query = "INSERT INTO students (name, class, age, gender, email, nationality, contact_number, password) VALUES ('$name', '$classValue', $age, '$gender', '$email', '$nationality', '$contactNumber', '$password')";
-
-        if (mysqli_query($conn, $query)) {
-            echo "SUCCESS: Student registered successfully!";
+        $query = "INSERT INTO students (name, class, age, gender, email, nationality, contact_number, password) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "ssisisss", $name, $classValue, $age, $gender, $email, $nationality, $contactNumber, $password);
+        
+        if (mysqli_stmt_execute($stmt)) {
+            echo "SUCCESS: Student registered successfully! Please login.";
         } else {
             echo "ERROR: Error registering student. Please try again later.";
         }
