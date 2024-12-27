@@ -1,11 +1,11 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include 'db_connection.php';
 
-// Enable error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-session_start(); // Start session management
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errorMessages = [];
@@ -20,17 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Process login only if no validation errors
     if (empty($errorMessages)) {
-        $query = "SELECT * FROM students WHERE email=?";
-        $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "s", $loginEmail);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+        $query = "SELECT * FROM students WHERE email='$loginEmail'";
+        $result = mysqli_query($conn, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
             $userData = mysqli_fetch_assoc($result);
             if (password_verify($loginPassword, $userData['password'])) {
-                // Store user data in session
-                $_SESSION['user_id'] = $userData['id']; // Store user ID for later use
+                $_SESSION['user_id'] = $userData['id'];
                 echo "SUCCESS: Student login successfully!";
             } else {
                 $errorMessages[] = "Incorrect password. Please try again.";
