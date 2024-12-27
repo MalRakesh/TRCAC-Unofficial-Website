@@ -16,31 +16,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $nationality = mysqli_real_escape_string($conn, $_POST['nationality']);
     $contactNumber = mysqli_real_escape_string($conn, $_POST['contact-number']);
-    $rawPassword = $_POST['password']; // Get raw password for hashing
+    $password = mysqli_real_escape_string($conn, $_POST['password']); // Raw password for hashing
 
     // Validate input fields for completeness
-    if (empty($name) || empty($classValue) || empty($email) || empty($rawPassword)) {
+    if (empty($name) || empty($classValue) || empty($email) || empty($password)) {
         $errorMessages[] = "Please fill in all required fields.";
     }
 
     // Check for existing email
-    $emailCheckQuery = "SELECT * FROM students WHERE email='$email'";
+    $emailCheckQuery = "SELECT * FROM users WHERE email='$email'";
     $result = mysqli_query($conn, $emailCheckQuery);
     if ($result && mysqli_num_rows($result) > 0) {
         $errorMessages[] = "Error: Email already exists. Please choose another email.";
     }
 
-    // Hashing the password
-    $hashed_password = password_hash($rawPassword, PASSWORD_DEFAULT);
-
     // Register if no errors
     if (empty($errorMessages)) {
-        $query = "INSERT INTO students (name, class, age, gender, email, nationality, contact_number, password) VALUES ('$name', '$classValue', $age, '$gender', '$email', '$nationality', '$contactNumber', '$hashed_password')";
+        // Hash the password before storing
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $query = "INSERT INTO users (name, class, age, gender, email, nationality, contact_number, password) VALUES ('$name', '$classValue', $age, '$gender', '$email', '$nationality', '$contactNumber', '$hashedPassword')";
 
         if (mysqli_query($conn, $query)) {
-            echo "SUCCESS: Student registered successfully!";
+            echo "SUCCESS: User registered successfully!";
         } else {
-            echo "ERROR: Error registering student. Error: " . mysqli_error($conn); // Log the SQL error
+            echo "ERROR: Error registering user. Error: " . mysqli_error($conn); // Log the SQL error
         }
     } else {
         foreach ($errorMessages as $message) {

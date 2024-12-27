@@ -20,15 +20,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Process login only if no validation errors
     if (empty($errorMessages)) {
-        $query = "SELECT * FROM students WHERE email='$loginEmail'";
+        $query = "SELECT * FROM users WHERE email='$loginEmail'"; // Correct table name
         $result = mysqli_query($conn, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
             $userData = mysqli_fetch_assoc($result);
-            // Verifying the hashed password
             if (password_verify($loginPassword, $userData['password'])) {
                 $_SESSION['user_id'] = $userData['id'];
-                echo "SUCCESS: Student logged in successfully!";
+                echo "SUCCESS: User logged in successfully!";
             } else {
                 $errorMessages[] = "Incorrect password. Please try again.";
             }
