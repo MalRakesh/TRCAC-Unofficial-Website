@@ -29,16 +29,15 @@ function handleFormSubmission(
     .then((data) => {
       console.log("Response from server:", data); // Log the server response
 
-      // Check for success or error
       if (data.startsWith("SUCCESS")) {
         showFeedback(feedbackDiv, successMessage, true);
         alert(successMessage); // Show alert for successful action
         onSuccess && onSuccess(); // Call onSuccess function if provided
       } else if (data.startsWith("ERROR")) {
-        showFeedback(feedbackDiv, data.replace("ERROR: ", ""), false); // Remove "ERROR: " from message
-        alert("Action Failed: " + data.replace("ERROR: ", "")); // Show alert for failed action
+        const errorMessage = data.replace("ERROR: ", "").trim();
+        showFeedback(feedbackDiv, errorMessage, false); // Display error message
+        alert("Action Failed: " + errorMessage); // Show alert for failed action
       } else {
-        // In case of unexpected response
         showFeedback(feedbackDiv, "Unexpected response from server.", false);
         alert("Unexpected response from server.");
       }
@@ -58,17 +57,12 @@ registrationForm.addEventListener("submit", (e) => {
   e.preventDefault(); // Prevent form submission
   const feedbackDiv = document.getElementById("registration-feedback");
 
-  console.log("Submitting registration form..."); // Log submission
-
   handleFormSubmission(
     registrationForm,
     "register.php",
     feedbackDiv,
     "Student registered successfully! Please login.",
     () => {
-      console.log(
-        "Registration successful, resetting form and switching to login."
-      ); // Log success
       registrationForm.reset();
       toggleForms(); // Switch to login form after registration
     }
@@ -80,15 +74,12 @@ loginForm.addEventListener("submit", (e) => {
   e.preventDefault(); // Prevent form submission
   const feedbackDiv = document.getElementById("login-feedback");
 
-  console.log("Submitting login form..."); // Log submission
-
   handleFormSubmission(
     loginForm,
     "login.php",
     feedbackDiv,
     "Student logged in successfully!",
     () => {
-      console.log("Login successful, redirecting..."); // Log success
       setTimeout(() => {
         window.location.href = "Welcome.html"; // Redirect after a short delay
       }, 1000);

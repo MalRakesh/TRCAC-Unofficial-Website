@@ -2,7 +2,6 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
 include 'db_connection.php';
 
 session_start();
@@ -29,18 +28,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['user_id'] = $userData['id'];
                 echo "SUCCESS: User logged in successfully!";
             } else {
-                $errorMessages[] = "Incorrect password. Please try again.";
+                echo "ERROR: Incorrect password. Please try again.";
             }
         } else {
-            $errorMessages[] = "No user found with this email. Please register first.";
+            echo "ERROR: No user found with this email. Please register first.";
         }
-    }
-
-    // Return combined error message
-    if (!empty($errorMessages)) {
+    } else {
+        // Join the error messages and output them as a single string
         echo "ERROR: " . implode(" ", $errorMessages);
     }
 
-    mysqli_close($conn);
+    mysqli_close($conn); // Close the database connection
+    exit; // Prevent any further output
 }
 ?>
