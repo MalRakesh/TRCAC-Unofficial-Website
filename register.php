@@ -43,9 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "ERROR: Error registering user. Error: " . mysqli_error($conn); // Log the SQL error
         }
     } else {
-        foreach ($errorMessages as $message) {
-            echo "ERROR: " . $message . "<br>";
-        }
+        // Return combined error message
+        echo "ERROR: " . implode(" ", $errorMessages);
     }
 
     mysqli_close($conn);

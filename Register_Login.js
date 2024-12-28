@@ -29,13 +29,18 @@ function handleFormSubmission(
     .then((data) => {
       console.log("Response from server:", data); // Log the server response
 
-      if (data.includes("SUCCESS")) {
+      // Check for success or error
+      if (data.startsWith("SUCCESS")) {
         showFeedback(feedbackDiv, successMessage, true);
         alert(successMessage); // Show alert for successful action
         onSuccess && onSuccess(); // Call onSuccess function if provided
+      } else if (data.startsWith("ERROR")) {
+        showFeedback(feedbackDiv, data.replace("ERROR: ", ""), false); // Remove "ERROR: " from message
+        alert("Action Failed: " + data.replace("ERROR: ", "")); // Show alert for failed action
       } else {
-        showFeedback(feedbackDiv, data, false); // Display error message
-        alert("Action Failed: " + data); // Show alert for failed action
+        // In case of unexpected response
+        showFeedback(feedbackDiv, "Unexpected response from server.", false);
+        alert("Unexpected response from server.");
       }
     })
     .catch((error) => {
@@ -81,7 +86,7 @@ loginForm.addEventListener("submit", (e) => {
     loginForm,
     "login.php",
     feedbackDiv,
-    "Student login successfully!",
+    "Student logged in successfully!",
     () => {
       console.log("Login successful, redirecting..."); // Log success
       setTimeout(() => {

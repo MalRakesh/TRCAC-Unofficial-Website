@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Process login only if no validation errors
     if (empty($errorMessages)) {
-        $query = "SELECT * FROM students WHERE email='$loginEmail'"; // Correct table name
+        $query = "SELECT * FROM students WHERE email='$loginEmail'";
         $result = mysqli_query($conn, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
@@ -36,10 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    // Return combined error message
     if (!empty($errorMessages)) {
-        foreach ($errorMessages as $message) {
-            echo "ERROR: " . $message . "<br>";
-        }
+        echo "ERROR: " . implode(" ", $errorMessages);
     }
 
     mysqli_close($conn);
