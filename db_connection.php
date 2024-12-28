@@ -1,6 +1,6 @@
 <?php
 // Database connection details
-$servername = "sql104.byetcluster.com"; // Your host name
+$servername = "sql104.infinityfree.com"; // Your host name
 $username = "if0_37993356"; // Your database username
 $password = "trcac12123"; // Your database password
 $dbname = "if0_37993356_trcac"; // Your database name (please replace with your actual database name)
