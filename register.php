@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -7,12 +11,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Collect and sanitize input data
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $classValue = mysqli_real_escape_string($conn, $_POST['class']);
-    $age = (int)$_POST['age'];
+    $age = (int)$_POST['age'];  // ensure it's an integer
     $gender = mysqli_real_escape_string($conn, $_POST['gender']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $nationality = mysqli_real_escape_string($conn, $_POST['nationality']);
     $contactNumber = mysqli_real_escape_string($conn, $_POST['contact-number']);
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password = mysqli_real_escape_string($conn, $_POST['password']); // Raw password for hashing
 
     // Validate input fields for completeness
     if (empty($name) || empty($classValue) || empty($email) || empty($password)) {
@@ -28,21 +32,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Register if no errors
     if (empty($errorMessages)) {
-        $query = "INSERT INTO students (name, class, age, gender, email, nationality, contact_number, password) VALUES ('$name', '$classValue', $age, '$gender', '$email', '$nationality', '$contactNumber', '$password')";
+        // Hash the password before storing
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $query = "INSERT INTO students (name, class, age, gender, email, nationality, contact_number, password) VALUES ('$name', '$classValue', $age, '$gender', '$email', '$nationality', '$contactNumber', '$hashedPassword')";
 
         if (mysqli_query($conn, $query)) {
-            echo "SUCCESS: Student registered successfully!";
+            echo "SUCCESS: User registered successfully!";
         } else {
-            echo "ERROR: Error registering student. Please try again later.";
+            echo "ERROR: Error registering user. Error: " . mysqli_error($conn);
         }
-    }
-
-    if (!empty($errorMessages)) {
-        foreach ($errorMessages as $message) {
-            echo "ERROR: " . $message . "<br>";
-        }
+    } else {
+        echo "ERROR: " . implode(" ", $errorMessages);
     }
 
     mysqli_close($conn);
+    exit; // Prevent any further output
 }
 ?>

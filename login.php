@@ -1,7 +1,10 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 include 'db_connection.php';
 
-session_start(); // Start session management
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errorMessages = [];
@@ -22,23 +25,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result && mysqli_num_rows($result) > 0) {
             $userData = mysqli_fetch_assoc($result);
             if (password_verify($loginPassword, $userData['password'])) {
-                // Store user data in session
-                $_SESSION['user_id'] = $userData['id']; // Store user ID for later use
-                echo "SUCCESS: Student login successfully!";
+                $_SESSION['user_id'] = $userData['id'];
+                echo "SUCCESS: User logged in successfully!";
             } else {
-                $errorMessages[] = "Incorrect password. Please try again.";
+                echo "ERROR: Incorrect password. Please try again.";
             }
         } else {
-            $errorMessages[] = "No user found with this email. Please register first.";
+            echo "ERROR: No user found with this email. Please register first.";
         }
+    } else {
+        // Join the error messages and output them as a single string
+        echo "ERROR: " . implode(" ", $errorMessages);
     }
 
-    if (!empty($errorMessages)) {
-        foreach ($errorMessages as $message) {
-            echo "ERROR: " . $message . "<br>";
-        }
-    }
-
-    mysqli_close($conn);
+    mysqli_close($conn); // Close the database connection
+    exit; // Prevent any further output
 }
 ?>

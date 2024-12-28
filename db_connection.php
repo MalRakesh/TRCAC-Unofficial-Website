@@ -1,9 +1,9 @@
 <?php
-// Database configuration
-$servername = "sql206.infinityfree.com"; // usually "localhost"
-$username = "if0_37755554"; // your database username
-$password = "RajaBhai@12345"; // your database password
-$dbname = "if0_37755554_trcac"; // your database name
+// Database connection details
+$servername = "sql104.infinityfree.com"; // Your host name
+$username = "if0_37993356"; // Your database username
+$password = "trcac12123"; // Your database password
+$dbname = "if0_37993356_trcac"; // Your database name (please replace with your actual database name)
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -13,11 +13,16 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Optionally, specify the character set
-mysqli_set_charset($conn, "utf8");
+// Set the character set to utf8mb4
+if (!mysqli_set_charset($conn, 'utf8mb4')) {
+    echo "Error loading character set utf8mb4: " . mysqli_error($conn);
+} else {
+    // Optional: You can check if the charset is set correctly
+    printf("Current character set: %s\n", mysqli_character_set_name($conn));
+}
 
-// You can also use the following line for a more secure connection setup if you're using MySQLi in a more modern application
-// if(!mysqli_set_charset($conn, "utf8mb4")) {
-//     exit("Failed to set charset to utf8mb4");
-// }
+// Close connection (make sure to close the connection when you're done)
+register_shutdown_function(function() use ($conn) {
+    mysqli_close($conn);
+});
 ?>

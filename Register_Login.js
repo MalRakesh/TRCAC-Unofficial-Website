@@ -27,13 +27,19 @@ function handleFormSubmission(
   })
     .then((response) => response.text())
     .then((data) => {
-      if (data.includes(successMessage)) {
+      console.log("Response from server:", data); // Log the server response
+
+      if (data.startsWith("SUCCESS")) {
         showFeedback(feedbackDiv, successMessage, true);
         alert(successMessage); // Show alert for successful action
         onSuccess && onSuccess(); // Call onSuccess function if provided
+      } else if (data.startsWith("ERROR")) {
+        const errorMessage = data.replace("ERROR: ", "").trim();
+        showFeedback(feedbackDiv, errorMessage, false); // Display error message
+        alert("Action Failed: " + errorMessage); // Show alert for failed action
       } else {
-        showFeedback(feedbackDiv, data, false); // Display error message
-        alert("Action Failed: " + data); // Show alert for failed action
+        showFeedback(feedbackDiv, "Unexpected response from server.", false);
+        alert("Unexpected response from server.");
       }
     })
     .catch((error) => {
@@ -48,8 +54,9 @@ function handleFormSubmission(
 
 // Handle registration
 registrationForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+  e.preventDefault(); // Prevent form submission
   const feedbackDiv = document.getElementById("registration-feedback");
+
   handleFormSubmission(
     registrationForm,
     "register.php",
@@ -64,13 +71,14 @@ registrationForm.addEventListener("submit", (e) => {
 
 // Handle login
 loginForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+  e.preventDefault(); // Prevent form submission
   const feedbackDiv = document.getElementById("login-feedback");
+
   handleFormSubmission(
     loginForm,
     "login.php",
     feedbackDiv,
-    "Student login successfully!",
+    "Student logged in successfully!",
     () => {
       setTimeout(() => {
         window.location.href = "Welcome.html"; // Redirect after a short delay
