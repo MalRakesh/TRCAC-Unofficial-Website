@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Process login only if no validation errors
     if (empty($errorMessages)) {
-        $query = "SELECT * FROM users WHERE email='$loginEmail'"; // Correct table name
+        $query = "SELECT * FROM students WHERE email='$loginEmail'"; // Correct table name
         $result = mysqli_query($conn, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {

@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Check for existing email
-    $emailCheckQuery = "SELECT * FROM users WHERE email='$email'";
+    $emailCheckQuery = "SELECT * FROM students WHERE email='$email'";
     $result = mysqli_query($conn, $emailCheckQuery);
     if ($result && mysqli_num_rows($result) > 0) {
         $errorMessages[] = "Error: Email already exists. Please choose another email.";
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Hash the password before storing
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO users (name, class, age, gender, email, nationality, contact_number, password) VALUES ('$name', '$classValue', $age, '$gender', '$email', '$nationality', '$contactNumber', '$hashedPassword')";
+        $query = "INSERT INTO students (name, class, age, gender, email, nationality, contact_number, password) VALUES ('$name', '$classValue', $age, '$gender', '$email', '$nationality', '$contactNumber', '$hashedPassword')";
 
         if (mysqli_query($conn, $query)) {
             echo "SUCCESS: User registered successfully!";
