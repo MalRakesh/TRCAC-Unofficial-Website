@@ -9,13 +9,7 @@ function showFeedback(element, message, isSuccess) {
 }
 
 // Handle form submission
-function handleFormSubmission(
-  form,
-  url,
-  feedbackDiv,
-  successMessage,
-  onSuccess
-) {
+function handleFormSubmission(form, url, feedbackDiv, successMessage) {
   const formData = new FormData(form);
   feedbackDiv.innerHTML = ""; // Clear previous feedback
   const submitButton = form.querySelector('input[type="submit"]');
@@ -32,11 +26,10 @@ function handleFormSubmission(
       if (data.startsWith("SUCCESS")) {
         showFeedback(feedbackDiv, successMessage, true);
         alert(successMessage); // Show alert for successful action
-        onSuccess && onSuccess(); // Call onSuccess function if provided
       } else if (data.startsWith("ERROR")) {
         const errorMessage = data.replace("ERROR: ", "").trim();
         showFeedback(feedbackDiv, errorMessage, false); // Display error message
-        alert("Action Failed: " + errorMessage); // Show alert for failed action
+        alert("Error: " + errorMessage); // Show alert for failed action
       } else {
         showFeedback(feedbackDiv, "Unexpected response from server.", false);
         alert("Unexpected response from server.");
@@ -61,11 +54,7 @@ registrationForm.addEventListener("submit", (e) => {
     registrationForm,
     "register.php",
     feedbackDiv,
-    "Student registered successfully! Please login.",
-    () => {
-      registrationForm.reset();
-      toggleForms(); // Switch to login form after registration
-    }
+    "Student registered successfully! Please login."
   );
 });
 
@@ -78,12 +67,7 @@ loginForm.addEventListener("submit", (e) => {
     loginForm,
     "login.php",
     feedbackDiv,
-    "Student logged in successfully!",
-    () => {
-      setTimeout(() => {
-        window.location.href = "Welcome.html"; // Redirect after a short delay
-      }, 1000);
-    }
+    "Student logged in successfully! Redirecting..."
   );
 });
 
