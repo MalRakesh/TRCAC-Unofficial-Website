@@ -24,16 +24,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (password_verify($loginPassword, $userData['password'])) {
                 // Store user data in session
                 $_SESSION['user_id'] = $userData['id']; // Store user ID for later use
-                echo "SUCCESS: Student login successfully!";
+                echo "SUCCESS: Student login successfully!";  // Send success message back to JS
             } else {
-                $errorMessages[] = "Incorrect password. Please try again.";
+                echo "ERROR: Incorrect password. Please try again.";
             }
         } else {
-            $errorMessages[] = "No user found with this email. Please register first.";
+            echo "ERROR: No user found with this email. Please register first.";
         }
-    }
-
-    if (!empty($errorMessages)) {
+    } else {
+        // Return any error messages
         foreach ($errorMessages as $message) {
             echo "ERROR: " . $message . "<br>";
         }

@@ -70,11 +70,12 @@ loginForm.addEventListener("submit", (e) => {
     loginForm,
     "login.php",
     feedbackDiv,
-    "Student login successfully!",
+    "Student login successfully!", // Success message
     () => {
+      // Redirect after successful login
       setTimeout(() => {
-        window.location.href = "Welcome.html"; // Redirect after a short delay
-      }, 1000);
+        window.location.href = "Welcome.html"; // Redirect to welcome page
+      }, 500); // 500ms delay
     }
   );
 });

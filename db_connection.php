@@ -13,16 +13,6 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-mysqli_set_charset($conn, "utf8");
-
-
-// Set the character set to utf8mb4
-// if (!mysqli_set_charset($conn, 'utf8mb4')) {
-//     echo "Error loading character set utf8mb4: " . mysqli_error($conn);
-// }
-
-// Close connection on script shutdown
-// register_shutdown_function(function() use ($conn) {
-//     mysqli_close($conn);
-// });
+// Set the character set to utf8mb4 for proper encoding
+mysqli_set_charset($conn, "utf8mb4");
 ?>
