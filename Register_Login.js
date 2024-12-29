@@ -1,13 +1,17 @@
 const registrationForm = document.getElementById("registration-form");
 const loginForm = document.getElementById("login-form");
 
-function showFeedback(element, message, isSuccess) {
-  element.innerHTML = `<span class='${
-    isSuccess ? "success" : "error"
-  }'>${message}</span>`;
+function showFeedback(element, message) {
+  element.innerHTML = `<span class='error'>${message}</span>`;
 }
 
-function handleFormSubmission(form, url, feedbackDiv, successMessage) {
+function handleFormSubmission(
+  form,
+  url,
+  feedbackDiv,
+  successMessage,
+  redirectUrl
+) {
   const formData = new FormData(form);
   feedbackDiv.innerHTML = "";
   const submitButton = form.querySelector('input[type="submit"]');
@@ -27,21 +31,20 @@ function handleFormSubmission(form, url, feedbackDiv, successMessage) {
       console.log("Response from server:", data);
 
       if (data.startsWith("SUCCESS")) {
-        showFeedback(feedbackDiv, successMessage, true);
         alert(successMessage);
-      } else if (data.startsWith("ERROR")) {
-        const errorMessage = data.replace("ERROR: ", "").trim();
-        showFeedback(feedbackDiv, errorMessage, false);
-        alert("Error: " + errorMessage);
+        if (redirectUrl) {
+          window.location.href = redirectUrl;
+        }
       } else {
-        showFeedback(feedbackDiv, "Unexpected response from server.", false);
-        alert("Unexpected response from server.");
+        const errorMessage = data.replace("ERROR: ", "").trim();
+        alert(errorMessage);
+        showFeedback(feedbackDiv, errorMessage);
       }
     })
     .catch((error) => {
       console.error("Error:", error);
-      showFeedback(feedbackDiv, "An error occurred: " + error.message, false);
-      alert("Error: An error occurred.");
+      alert("An error occurred: " + error.message);
+      showFeedback(feedbackDiv, "An error occurred: " + error.message);
     })
     .finally(() => {
       submitButton.disabled = false;
@@ -51,24 +54,24 @@ function handleFormSubmission(form, url, feedbackDiv, successMessage) {
 registrationForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const feedbackDiv = document.getElementById("registration-feedback");
-
   handleFormSubmission(
     registrationForm,
     "register.php",
     feedbackDiv,
-    "Student registered successfully! Please login."
+    "You have successfully registered! Now you can log in.",
+    "login.php"
   );
 });
 
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const feedbackDiv = document.getElementById("login-feedback");
-
   handleFormSubmission(
     loginForm,
     "login.php",
     feedbackDiv,
-    "Student logged in successfully! Redirecting..."
+    "You have successfully logged in!",
+    "Welcome.html"
   );
 });
 

@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $query = "INSERT INTO students (name, class, age, gender, email, nationality, contact_number, password) VALUES ('$name', '$classValue', $age, '$gender', '$email', '$nationality', '$contactNumber', '$hashedPassword')";
 
         if (mysqli_query($conn, $query)) {
-            echo "SUCCESS: User registered successfully!";
+            echo "SUCCESS: You have successfully registered! Now you can log in.";
         } else {
             echo "ERROR: Error registering user. Error: " . mysqli_error($conn);
         }

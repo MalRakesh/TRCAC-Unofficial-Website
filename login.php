@@ -32,9 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $userData = mysqli_fetch_assoc($result);
             if (password_verify($loginPassword, $userData['password'])) {
                 $_SESSION['user_id'] = $userData['id'];
+                $_SESSION['username'] = $userData['name']; // Store username in session
                 echo "SUCCESS: User logged in successfully!";
             } else {
-                echo "ERROR: Incorrect password. Please try again.";
+                echo "ERROR: You have entered an incorrect password or email ID.";
             }
         } else {
             echo "ERROR: No user found with this email. Please register first.";
