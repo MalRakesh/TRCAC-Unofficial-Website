@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = mysqli_query($conn, $query);
 
         if (!$result) {
-            echo "ERROR: " . mysqli_error($conn);
+            echo json_encode(["success" => false, "message" => "ERROR: " . mysqli_error($conn)]);
             exit;
         }
 
@@ -32,16 +32,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $userData = mysqli_fetch_assoc($result);
             if (password_verify($loginPassword, $userData['password'])) {
                 $_SESSION['user_id'] = $userData['id'];
-                $_SESSION['username'] = $userData['name']; // Store username in session
-                echo "SUCCESS: User logged in successfully!";
+                $_SESSION['username'] = $userData['name'];
+                echo json_encode(["success" => true, "message" => "You have successfully logged in!"]);
             } else {
-                echo "ERROR: You have entered an incorrect password or email ID.";
+                echo json_encode(["success" => false, "message" => "You have entered an incorrect password or email ID."]);
             }
         } else {
-            echo "ERROR: No user found with this email. Please register first.";
+            echo json_encode(["success" => false, "message" => "You have entered an incorrect password or email ID."]);
         }
-    } else {
-        echo "ERROR: " . implode(" ", $errorMessages);
     }
 
     mysqli_close($conn);

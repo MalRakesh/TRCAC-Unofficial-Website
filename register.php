@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $nationality = mysqli_real_escape_string($conn, $_POST['nationality']);
     $contactNumber = mysqli_real_escape_string($conn, $_POST['contact-number']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']); // Raw password for hashing
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
 
     if (empty($name) || empty($classValue) || empty($email) || empty($password)) {
         $errorMessages[] = "Please fill in all required fields.";
@@ -27,26 +27,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = mysqli_query($conn, $emailCheckQuery);
     
     if (!$result) {
-        echo "ERROR: " . mysqli_error($conn);
+        echo json_encode(["success" => false, "message" => "Error: " . mysqli_error($conn)]);
         exit;
     }
 
     if (mysqli_num_rows($result) > 0) {
-        $errorMessages[] = "Error: Email already exists. Please choose another email.";
+        echo json_encode(["success" => false, "message" => "Error: Email already exists. Please choose another email."]);
+        exit;
     }
 
-    // Register if no errors
+    // Register user if no errors
     if (empty($errorMessages)) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $query = "INSERT INTO students (name, class, age, gender, email, nationality, contact_number, password) VALUES ('$name', '$classValue', $age, '$gender', '$email', '$nationality', '$contactNumber', '$hashedPassword')";
 
         if (mysqli_query($conn, $query)) {
-            echo "SUCCESS: You have successfully registered! Now you can log in.";
+            echo json_encode(["success" => true, "message" => "You have successfully registered! Now you can log in."]);
         } else {
-            echo "ERROR: Error registering user. Error: " . mysqli_error($conn);
+            echo json_encode(["success" => false, "message" => "Error registering user. Error: " . mysqli_error($conn)]);
         }
     } else {
-        echo "ERROR: " . implode(" ", $errorMessages);
+        echo json_encode(["success" => false, "message" => implode(" ", $errorMessages)]);
     }
 
     mysqli_close($conn);

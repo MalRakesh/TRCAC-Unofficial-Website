@@ -1,9 +1,8 @@
 <?php
-// Database connection details
-$servername = "sql104.infinityfree.com"; // Your host name
-$username = "if0_37993356"; // Your database username
-$password = "trcac12123"; // Your database password
-$dbname = "if0_37993356_trcac"; // Your database name
+$servername = "your_server"; // Your database server
+$username = "your_username"; // Your database username
+$password = "your_password"; // Your database password
+$dbname = "your_database"; // Your database name
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -12,14 +11,4 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
-// Set the character set to utf8mb4
-if (!mysqli_set_charset($conn, 'utf8mb4')) {
-    echo "Error loading character set utf8mb4: " . mysqli_error($conn);
-}
-
-// Close connection on script shutdown
-register_shutdown_function(function() use ($conn) {
-    mysqli_close($conn);
-});
 ?>
