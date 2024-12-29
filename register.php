@@ -1,8 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 include 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -16,8 +12,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $nationality = mysqli_real_escape_string($conn, $_POST['nationality']);
     $contactNumber = mysqli_real_escape_string($conn, $_POST['contact-number']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
+    // Validate input fields for completeness
     if (empty($name) || empty($classValue) || empty($email) || empty($password)) {
         $errorMessages[] = "Please fill in all required fields.";
     }
@@ -25,32 +22,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check for existing email
     $emailCheckQuery = "SELECT * FROM students WHERE email='$email'";
     $result = mysqli_query($conn, $emailCheckQuery);
-    
-    if (!$result) {
-        echo json_encode(["success" => false, "message" => "Error: " . mysqli_error($conn)]);
-        exit;
+    if ($result && mysqli_num_rows($result) > 0) {
+        $errorMessages[] = "Error: Email already exists. Please choose another email.";
     }
 
-    if (mysqli_num_rows($result) > 0) {
-        echo json_encode(["success" => false, "message" => "Error: Email already exists. Please choose another email."]);
-        exit;
-    }
-
-    // Register user if no errors
+    // Register if no errors
     if (empty($errorMessages)) {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO students (name, class, age, gender, email, nationality, contact_number, password) VALUES ('$name', '$classValue', $age, '$gender', '$email', '$nationality', '$contactNumber', '$hashedPassword')";
+        $query = "INSERT INTO students (name, class, age, gender, email, nationality, contact_number, password) VALUES ('$name', '$classValue', $age, '$gender', '$email', '$nationality', '$contactNumber', '$password')";
 
         if (mysqli_query($conn, $query)) {
-            echo json_encode(["success" => true, "message" => "You have successfully registered! Now you can log in."]);
+            echo "SUCCESS: Student registered successfully!";
         } else {
-            echo json_encode(["success" => false, "message" => "Error registering user. Error: " . mysqli_error($conn)]);
+            echo "ERROR: Error registering student. Please try again later.";
         }
-    } else {
-        echo json_encode(["success" => false, "message" => implode(" ", $errorMessages)]);
+    }
+
+    if (!empty($errorMessages)) {
+        foreach ($errorMessages as $message) {
+            echo "ERROR: " . $message . "<br>";
+        }
     }
 
     mysqli_close($conn);
-    exit;
 }
 ?>

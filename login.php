@@ -1,11 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 include 'db_connection.php';
 
-session_start();
+session_start(); // Start session management
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errorMessages = [];
@@ -23,26 +19,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $query = "SELECT * FROM students WHERE email='$loginEmail'";
         $result = mysqli_query($conn, $query);
 
-        if (!$result) {
-            echo json_encode(["success" => false, "message" => "ERROR: " . mysqli_error($conn)]);
-            exit;
-        }
-
-        if (mysqli_num_rows($result) > 0) {
+        if ($result && mysqli_num_rows($result) > 0) {
             $userData = mysqli_fetch_assoc($result);
             if (password_verify($loginPassword, $userData['password'])) {
-                $_SESSION['user_id'] = $userData['id'];
-                $_SESSION['username'] = $userData['name'];
-                echo json_encode(["success" => true, "message" => "You have successfully logged in!"]);
+                // Store user data in session
+                $_SESSION['user_id'] = $userData['id']; // Store user ID for later use
+                echo "SUCCESS: Student login successfully!";
             } else {
-                echo json_encode(["success" => false, "message" => "You have entered an incorrect password or email ID."]);
+                $errorMessages[] = "Incorrect password. Please try again.";
             }
         } else {
-            echo json_encode(["success" => false, "message" => "You have entered an incorrect password or email ID."]);
+            $errorMessages[] = "No user found with this email. Please register first.";
+        }
+    }
+
+    if (!empty($errorMessages)) {
+        foreach ($errorMessages as $message) {
+            echo "ERROR: " . $message . "<br>";
         }
     }
 
     mysqli_close($conn);
-    exit;
 }
 ?>
