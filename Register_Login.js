@@ -1,35 +1,38 @@
 const registrationForm = document.getElementById("registration-form");
 const loginForm = document.getElementById("login-form");
 
-// Function to show feedback
 function showFeedback(element, message, isSuccess) {
   element.innerHTML = `<span class='${
     isSuccess ? "success" : "error"
   }'>${message}</span>`;
 }
 
-// Handle form submission
 function handleFormSubmission(form, url, feedbackDiv, successMessage) {
   const formData = new FormData(form);
-  feedbackDiv.innerHTML = ""; // Clear previous feedback
+  feedbackDiv.innerHTML = "";
   const submitButton = form.querySelector('input[type="submit"]');
-  submitButton.disabled = true; // Disable to prevent multiple submissions
+  submitButton.disabled = true;
 
   fetch(url, {
     method: "POST",
     body: formData,
   })
-    .then((response) => response.text())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok: " + response.statusText);
+      }
+      return response.text();
+    })
     .then((data) => {
-      console.log("Response from server:", data); // Log the server response
+      console.log("Response from server:", data);
 
       if (data.startsWith("SUCCESS")) {
         showFeedback(feedbackDiv, successMessage, true);
-        alert(successMessage); // Show alert for successful action
+        alert(successMessage);
       } else if (data.startsWith("ERROR")) {
         const errorMessage = data.replace("ERROR: ", "").trim();
-        showFeedback(feedbackDiv, errorMessage, false); // Display error message
-        alert("Error: " + errorMessage); // Show alert for failed action
+        showFeedback(feedbackDiv, errorMessage, false);
+        alert("Error: " + errorMessage);
       } else {
         showFeedback(feedbackDiv, "Unexpected response from server.", false);
         alert("Unexpected response from server.");
@@ -37,17 +40,16 @@ function handleFormSubmission(form, url, feedbackDiv, successMessage) {
     })
     .catch((error) => {
       console.error("Error:", error);
-      showFeedback(feedbackDiv, "An error occurred.", false);
-      alert("Error: An error occurred."); // Show alert for general error
+      showFeedback(feedbackDiv, "An error occurred: " + error.message, false);
+      alert("Error: An error occurred.");
     })
     .finally(() => {
-      submitButton.disabled = false; // Enable button after response
+      submitButton.disabled = false;
     });
 }
 
-// Handle registration
 registrationForm.addEventListener("submit", (e) => {
-  e.preventDefault(); // Prevent form submission
+  e.preventDefault();
   const feedbackDiv = document.getElementById("registration-feedback");
 
   handleFormSubmission(
@@ -58,9 +60,8 @@ registrationForm.addEventListener("submit", (e) => {
   );
 });
 
-// Handle login
 loginForm.addEventListener("submit", (e) => {
-  e.preventDefault(); // Prevent form submission
+  e.preventDefault();
   const feedbackDiv = document.getElementById("login-feedback");
 
   handleFormSubmission(
@@ -71,7 +72,6 @@ loginForm.addEventListener("submit", (e) => {
   );
 });
 
-// Function to toggle the registration and login forms
 function toggleForms() {
   const registrationContainer = document.getElementById(
     "registration-container"
