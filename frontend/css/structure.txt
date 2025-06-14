@@ -1,0 +1,54 @@
+TRCAC/
+│
+├── index.html
+├── README.md
+│
+├── frontend/
+│   ├── assets/
+│   │   ├── images/
+│   │   │   ├── logo.png
+│   │   │   ├── 1.jpg
+│   │   │   └── ... more images
+│   │   └── icons/
+│   │
+│   ├── css/
+│   │   ├── style.css
+│   │   ├── responsive.css
+│   │   ├── home.css
+│   │   ├── about.css
+│   │   ├── contact.css
+│   │   ├── course.css
+│   │   ├── register_login.css
+│   │   └── welcome.css
+│   │
+│   ├── js/
+│   │   ├── main.js
+│   │   ├── home.js
+│   │   ├── login_register.js
+│   │   └── attendance.js
+│   │
+│   ├── pages/
+│   │   ├── about.html
+│   │   ├── contact.html
+│   │   ├── course.html
+│   │   ├── register_login.html
+│   │   └── welcome.html
+│   │
+│   └── components/
+│       ├── header.html
+│       └── footer.html
+│
+├── backend/
+│   ├── db/
+│   │   ├── db_connection.php
+│   │   └── config.php
+│   │
+│   ├── php/
+│   │   ├── login.php
+│   │   ├── register.php
+│   │   └── handle_attendance.php
+│   │
+│   └── utils/
+│       └── helpers.php
+│
+└── .gitignore
