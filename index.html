@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRCAC - Home</title>
     <!-- favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="Images/favicon/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="Images/favicon/android-chrome-512x512.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="Images/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="Images/favicon/favicon-16x16.png">
-    <link rel="manifest" href="Images/favicon/site.webmanifest">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/frontend/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/frontend/assets/favicon/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/frontend/assets/favicon/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/frontend/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/frontend/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/frontend/assets/favicon/site.webmanifest">
+    <link rel="stylesheet" href="/frontend/css/styles.css">
 </head>
 
 <body>
@@ -20,16 +20,16 @@
     <header>
         <!-- Logo (replace 'logo.png' with the path to your logo image) -->
         <div>
-            <img src="Images/Logo.png" alt="Logo" style="height: 150px;"> <!-- Adjust the height as needed -->
+            <img src="/frontend/assets/images/Logo.png" alt="Logo" style="height: 150px;"> <!-- Adjust the height as needed -->
         </div>
 
         <!-- Navigation Links -->
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="Course.html">Courses</a></li>
-                <li><a href="About.html">About Us</a></li>
-                <li><a href="Contact.html">Contact</a></li>
+                <li><a href="/frontend/pages/course.html">Courses</a></li>
+                <li><a href="/frontend/pages/about.html">About Us</a></li>
+                <li><a href="/frontend/pages/contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -49,13 +49,34 @@
         <!-- Right Content -->
         <!-- Right Content -->
         <div class="right-content">
-            <img id="slideshow-image" src="Images/1.jpg" alt="Slideshow Image">
+            <img id="slideshow-image" src="/frontend/assets/images/1.jpg" alt="Slideshow Image">
         </div>
+
+        <script>
+            // Hamburger Menu Toggle
+            const menuToggle = document.createElement('div');
+            menuToggle.classList.add('menu-toggle');
+            menuToggle.innerHTML = '☰';
+            document.querySelector('header').appendChild(menuToggle);
+
+            const nav = document.querySelector('nav ul');
+
+            menuToggle.addEventListener('click', () => {
+                nav.classList.toggle('active');
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function (event) {
+                if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
+                    nav.classList.remove('active');
+                }
+            });
+         </script>
 
         <script>
             // JavaScript for automatic slideshow
             var slideIndex = 0;
-            var slides = ["Images/1.jpg", "Images/2.jpg", "Images/3.jpg", "Images/4.jpg", "Images/5.jpg"]; // Add more image URLs as needed
+            var slides = ["/frontend/assets/images/1.jpg", "/frontend/assets/images/2.jpg", "/frontend/assets/images/3.jpg", "/frontend/assets/images/4.jpg", "/frontend/assets/images/5.jpg"]; // Add more image URLs as needed
 
             function showSlide() {
                 var image = document.getElementById("slideshow-image");
