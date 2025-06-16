@@ -29,11 +29,7 @@ This project showcases the TRCAC Website with great user experience and also a d
 
 ## Demo
 
-<<<<<<< HEAD
 Check out the live demo [here](https://trcac-unofficial.great-site.net).
-=======
-Check out the live demo [here](https://trcac.my-style.in).
->>>>>>> 4d117a7f55eec6b11fa1794be7919f2f406c24ca
 
 <br> 
 
