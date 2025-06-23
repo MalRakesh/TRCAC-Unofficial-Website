@@ -5,92 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TRCAC - Home</title>
-    <!-- favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="frontend/assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="frontend/assets/favicon/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="frontend/assets/favicon/android-chrome-512x512.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="frontend/assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="frontend/assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="frontend/assets/favicon/site.webmanifest">
-    <link rel="stylesheet" href="frontend/css/styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <header>
-        <!-- Logo (replace 'logo.png' with the path to your logo image) -->
-        <div>
-            <img src="frontend/assets/images/Logo.png" alt="Logo" style="height: 150px;"> <!-- Adjust the height as needed -->
-        </div>
+    <!-- Header -->
+    <?php include 'frontend/components/header.php'; ?>
 
-        <!-- Navigation Links -->
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="frontend/pages/course.html">Courses</a></li>
-                <li><a href="frontend/pages/about.html">About Us</a></li>
-                <li><a href="frontend/pages/contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Navigation -->
+    <?php include 'frontend/components/nav.php'; ?>
 
-    <!-- Content of your website goes here -->
-
-    <!-- Body Content -->
+    <!-- Content -->
     <div class="content-container">
-        <!-- Left Content -->
         <div class="left-content">
-            <h2>Upgrade Your
-                Skill Now!</h2>
-            <p>Welcome to <b>TRCAC</b>,
-                Where Every Student's Journey Begins.</p>
-            <button id="btn" onclick="location.href='Register_Login.html'">Register Now</button>
+            <h2>Upgrade Your Skill Now!</h2>
+            <p>Welcome to <b>TRCAC</b>, Where Every Student's Journey Begins.</p>
+            <button id="btn" onclick="location.href='Register_Login.php'">Register Now</button>
         </div>
-        <!-- Right Content -->
-        <!-- Right Content -->
         <div class="right-content">
             <img id="slideshow-image" src="frontend/assets/images/1.jpg" alt="Slideshow Image">
         </div>
-
-        <script>
-            // Hamburger Menu Toggle
-            const menuToggle = document.createElement('div');
-            menuToggle.classList.add('menu-toggle');
-            menuToggle.innerHTML = '☰';
-            document.querySelector('header').appendChild(menuToggle);
-
-            const nav = document.querySelector('nav ul');
-
-            menuToggle.addEventListener('click', () => {
-                nav.classList.toggle('active');
-            });
-
-            // Close menu when clicking outside
-            document.addEventListener('click', function (event) {
-                if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-                    nav.classList.remove('active');
-                }
-            });
-         </script>
-
-        <script>
-            // JavaScript for automatic slideshow
-            var slideIndex = 0;
-            var slides = ["frontend/assets/images/1.jpg", "frontend/assets/images/2.jpg", "frontend/assets/images/3.jpg", "frontend/assets/images/4.jpg", "frontend/assets/images/5.jpg"]; // Add more image URLs as needed
-
-            function showSlide() {
-                var image = document.getElementById("slideshow-image");
-                image.src = slides[slideIndex];
-                slideIndex = (slideIndex + 1) % slides.length; // Cycle through images
-            }
-
-            // Initial call to show the first slide
-            showSlide();
-
-            // Set interval to automatically change slide every 3 seconds
-            setInterval(showSlide, 2000); // Change slide every 3 seconds (3000 milliseconds)
-        </script>
     </div>
+
+    <!-- Footer -->
+    <?php include 'components/footer.php'; ?>
+
+    <!-- Slideshow Script -->
+    <script>
+        var slideIndex = 0;
+        var slides = ["frontend/assets/images/1.jpg", "frontend/assets/images/2.jpg", "frontend/assets/images/3.jpg", "frontend/assets/images/4.jpg", "frontend/assets/images/5.jpg"];
+
+        function showSlide() {
+            var image = document.getElementById("slideshow-image");
+            image.src = slides[slideIndex];
+            slideIndex = (slideIndex + 1) % slides.length;
+        }
+
+        setInterval(showSlide, 2000);
+    </script>
 
 </body>
 
